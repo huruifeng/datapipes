@@ -1,0 +1,10 @@
+/* ToolBar.css */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #dddddd;
+  color: white;
+  height: 40px;
+  width: 100%;
+}

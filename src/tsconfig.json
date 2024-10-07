@@ -1,0 +1,16 @@
+// tsconfig.json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",        // Enables JSX in .tsx files
+    "module": "esnext",       // Use ESNext modules
+    "target": "es5",          // Or "es6" depending on your project needs
+    "allowJs": true,          // (Optional) Allow JS files if your project contains them
+    "resolveJsonModule": true, // (Optional) If you need to import JSON files
+    "esModuleInterop": true,   // To allow compatibility with ES Modules
+    "moduleResolution": "node",
+    "skipLibCheck": true,      // To skip type checking on library files
+    "strict": true             // Enable strict mode
+  },
+  "include": ["src/**/*"],    // Ensure it includes all TypeScript/TSX files
+  "exclude": ["node_modules"]
+}
