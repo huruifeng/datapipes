@@ -10,6 +10,8 @@ import ReactDOM from "react-dom";
 
 // @ts-ignore
 import SettingBar from "./SettingBar/index.tsx";
+// @ts-ignore
+import {runCurrent} from "./functions.tsx";
 
 const imageShapes = [
   {label: 'Client', image: './images/computer-solid.svg',},
@@ -34,7 +36,7 @@ export const imageNodes = imageShapes.map((item) =>
 
 // ========================================
 const image = {
-  logo: './images/setting.png',
+  setting: './images/setting.png',
   success: './images/success.png',
   default: './images/play.png',
   failed: './images/failed.png',
@@ -48,10 +50,10 @@ const AlgoNode = (props) => {
 
   return (
     <div className={`node ${status}`} >
-      <img src={image.logo} alt="logo" onClick={() => showSetting(node)}  />
+      <img className="setting_icon" src={image.setting} alt="setting" onClick={() => showSetting(node)}  />
       <span className="label">{label}</span>
         <span className="status">
-        {status === 'default' && <img src={image.default} alt="default" />}
+        {status === 'default' && <img src={image.default} alt="default" onClick={()=>runCurrent()} />}
         {status === 'success' && <img src={image.success} alt="success" />}
         {status === 'failed' && <img src={image.failed} alt="failed" />}
         {status === 'running' && <img src={image.running} alt="running" />}

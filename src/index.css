@@ -116,8 +116,12 @@ code {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  margin-left: 8px;
+  margin-left: 5px;
     cursor: pointer;
+}
+img.setting_icon{
+  width: 30px;
+  height: 30px;
 }
 .node{
    a:link {
