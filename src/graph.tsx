@@ -8,10 +8,6 @@ import { Clipboard } from '@antv/x6-plugin-clipboard'
 import { History } from '@antv/x6-plugin-history'
 
 import { Stencil } from '@antv/x6-plugin-stencil'
-// @ts-ignore
-import ReactDOM from "react-dom";
-// @ts-ignore
-import SettingBar from "./SettingBar/index.tsx";
 
 // ========================================
 export interface NodeStatus {
@@ -111,7 +107,7 @@ graph.on('node:click', ({ e, x, y, node, view }) => {
     // console.log('node:click', node
     const selectedNode = node.getData() as NodeStatus
   console.log(selectedNode)
-  ReactDOM.render(<SettingBar selectedNode={selectedNode} />, document.getElementById('settingBar'));
+  // ReactDOM.render(<SettingBar selectedNode={selectedNode} />, document.getElementById('settingBar'));
 
 })
 

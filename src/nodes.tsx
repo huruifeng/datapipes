@@ -5,6 +5,11 @@ import React from "react";
 import { Graph, Path } from '@antv/x6'
 
 import { register } from '@antv/x6-react-shape'
+// @ts-ignore
+import ReactDOM from "react-dom";
+
+// @ts-ignore
+import SettingBar from "./SettingBar/index.tsx";
 
 const imageShapes = [
   {label: 'Client', image: './images/computer-solid.svg',},
@@ -43,7 +48,7 @@ const AlgoNode = (props) => {
 
   return (
     <div className={`node ${status}`} >
-      <img src={image.logo} alt="logo" />
+      <img src={image.logo} alt="logo" onClick={() => showSetting(node)}  />
       <span className="label">{label}</span>
         <span className="status">
         {status === 'default' && <img src={image.default} alt="default" />}
@@ -124,23 +129,31 @@ Graph.registerConnector('algo-connector',
   true,
 )
 
+const showSetting = (node)=>{
+    // console.log('node:click', node
+    const selectedNode = node.getData() as NodeStatus
+    console.log(selectedNode)
+  ReactDOM.render(<SettingBar selectedNode={selectedNode} />, document.getElementById('settingBar'));
+
+}
+
 // ========================================
 export const panda_df_read_csv = graph.createNode({
     id: "panda_df_read_csv",
     shape: "dag-node",
     data: {label: "read_csv", status: "default", url:"https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html", description:"Read a comma-separated values (csv) file into DataFrame",
         params: [
-            {name:"filepath", value:"file path"}, {name: "sep", value:","}, {name:"header",valur:'infer'}, {name:"index_col", value: "None"},
-            {name:"usecols", value:"None"}, {name:"dtype", value:"None"}, {name:"engine", value:"None"}, {name:"converters", value:"None"},
-            {name:"true_values", value:"None"}, {name:"false_values", value:"None"}, {name:"skipinitialspace", value:"False"}, {name:"skiprows", value:"None"},
-            {name:"skipfooter", value:"0"}, {name:"nrows", value:"None"}, {name:"na_values", value:"None"}, {name:"keep_default_na", value:"True"}, {name:"na_filter", value:"True"},
-            {name:"skip_blank_lines", value:"True"}, {name:"parse_dates", value:"None"}, {name:"infer_datetime_format", value:"False"}, {name:"keep_date_col", value:"<no_default>"},
-            {name:"date_format", value:"None"}, {name:"dayfirst", value:"False"}, {name:"cache_dates", value:"True"}, {name:"iterator", value:"False"},
-            {name:"chunksize", value:"None"}, {name:"compression", value:"infer"}, {name:"thousands", value:"None"}, {name:"decimal", value:"."},
-            {name:"lineterminator", value:"None"}, {name:"quotechar", value:"\""}, {name:"quoting", value:"0"}, {name:"doublequote", value:"True"},
-            {name:"escapechar", value:"None"}, {name:"comment", value:"None"}, {name:"encoding", value:"None"}, {name:"encoding_errors", value:"strict"},
-            {name:"dialect", value:"None"}, {name:"on_bad_lines", value:"error"}, {name:"delim_whitespace", value:"<no_default>"}, {name:"low_memory", value:"True"},
-            {name:"memory_map", value:"False"}, {name:"float_precision", value:"None"}, {name:"storage_options", value:"None"}
+            {name:"filepath", value:"", type:"file"}, {name: "sep", value:",",type:"text"}, {name:"header",valur:'infer',type:"text"}, {name:"index_col", value: "None",type:"text"},
+            {name:"usecols", value:"None",type:"text"}, {name:"dtype", value:"None",type:"text"}, {name:"engine", value:"None",type:"select", options:["None","C"]}, {name:"converters", value:"None",type:"text"},
+            {name:"true_values", value:"None",type:"text"}, {name:"false_values", value:"None",type:"text"}, {name:"skipinitialspace", value:"False",type:"text"}, {name:"skiprows", value:"None",type:"text"},
+            {name:"skipfooter", value:"0",type:"text"}, {name:"nrows", value:"None",type:"text"}, {name:"na_values", value:"None",type:"text"}, {name:"keep_default_na", value:"True",type:"checkbox"}, {name:"na_filter", value:"True",type:"checkbox"},
+            {name:"skip_blank_lines", value:"True",type:"checkbox"}, {name:"parse_dates", value:"None", type:"checkbox"}, {name:"infer_datetime_format", value:"False",type:"checkbox"}, {name:"keep_date_col", value:"<no_default>",type:"text"},
+            {name:"date_format", value:"None",type:"text"}, {name:"dayfirst", value:"False",type:"checkbox"}, {name:"cache_dates", value:"True",type:"checkbox"}, {name:"iterator", value:"False",type:"checkbox"},
+            {name:"chunksize", value:"None",type:"text"}, {name:"compression", value:"infer",type:"text"}, {name:"thousands", value:"None",type:"text"}, {name:"decimal", value:".",type:"text"},
+            {name:"lineterminator", value:"None",type:"text"}, {name:"quotechar", value:"\"",type:"text"}, {name:"quoting", value:"0",type:"text"}, {name:"doublequote", value:"True",type:"text"},
+            {name:"escapechar", value:"None",type:"text"}, {name:"comment", value:"None",type:"text"}, {name:"encoding", value:"None",type:"text"}, {name:"encoding_errors", value:"strict",type:"text"},
+            {name:"dialect", value:"None",type:"text"}, {name:"on_bad_lines", value:"error",type:"text"}, {name:"delim_whitespace", value:"<no_default>",type:"text"}, {name:"low_memory", value:"True",type:"checkbox"},
+            {name:"memory_map", value:"False",type:"checkbox"}, {name:"float_precision", value:"None",type:"text"}, {name:"storage_options", value:"None",type:"text"}
         ]
     },
     ports: [{id: "panda_df_read_csv_b", group: "bottom"}],

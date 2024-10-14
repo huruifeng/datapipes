@@ -115,7 +115,7 @@ const onNew = () => {
 // ========================================
 function saveFileA() {
     let fileName = document.getElementById('fileName')!.innerText
-    if (fileName === 'Unsaved pipeline') {
+    if (fileName === 'Unsaved pipeline' || fileName === 'Remember to save') {
         fileName = 'pipeline.json'
     }
     let graphJson = graph.toJSON()
@@ -129,7 +129,7 @@ function saveFileA() {
     URL.revokeObjectURL(url)
     savePipelineInSession()
 
-    document.getElementById('fileName')!.innerText = "Saved in local file"
+    document.getElementById('fileName')!.innerText = "Remember to save"
 
 }
 
