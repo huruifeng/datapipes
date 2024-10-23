@@ -5,17 +5,21 @@ import "./graph.tsx";
 import {graph, NodeStatus, stencil} from './graph.tsx';
 
 // @ts-ignore
-import ToolBar from './ToolBar/index.tsx';
+import ToolBar from './ToolBar';
 // @ts-ignore
 import ReactDOM from 'react-dom';
 
 // @ts-ignore
 import * as nodes from './nodes.tsx';
 // @ts-ignore
-import SettingBar from "./SettingBar/index.tsx";
+import SettingBar from "./SettingBar";
+
+import Modal from "./Modal"
 
 // @ts-ignore
-import {onOpen, onNew, onSave, runPipeline, runSelected, runToSelected, savePipelineInSession} from './functions.tsx';
+import {onOpen, onNew, onSave, runPipeline, runSelected, runToSelected, savePipelineInSession} from './functions.jsx';
+// @ts-ignore
+import {toggleModal} from './functions.jsx';
 
 
 // ========================================
@@ -48,7 +52,7 @@ const showNodeStatus = async (statusList: NodeStatus[][]) => {
   status?.forEach((item) => {
     const { id, status } = item
     const node = graph.getCellById(id)
-    const data = node.getData() as NodeStatus
+    const data = node.getData()
     node.setData({
       ...data,
       status,
@@ -60,6 +64,8 @@ const showNodeStatus = async (statusList: NodeStatus[][]) => {
 }
 
 // ========================================
+
+// Function to open/close modal based on isOpen value
 const checkPipelineInSession = () => {
     const pipeline = sessionStorage.getItem('pipeline')
     if (pipeline) {
@@ -69,19 +75,20 @@ const checkPipelineInSession = () => {
         console.log("No pipeline in session")
     }
 
-
+    var modal = document.getElementById('myModal');
     let projName = sessionStorage.getItem('projName')
     if (projName){
         console.log("projName in session")
         if(projName.includes("Error")){
             console.log("projName Error")
-            document.getElementById("btn-new").click()
+            toggleModal(modal,true);
+
         }else{
-            document.getElementById('projName')!.innerText = projName
+            document.getElementById('projName').innerText = projName
         }
     }else{
         console.log("projName not in session")
-        document.getElementById("btn-new").click()
+        toggleModal(modal,true);
     }
 
 }
@@ -93,8 +100,10 @@ window.onload = () => {
 
 // ========================================
 const selectedNode = null;
+
 ReactDOM.render(<ToolBar onRunPipeline={runPipeline} onRunSelected={runSelected} onRunToSelected={runToSelected} onNew={()=>onNew(graph)} onSave={()=>onSave(graph)} onOpen={()=>onOpen(graph)} />, document.getElementById('right-top'));
 ReactDOM.render(<SettingBar selectedNode={selectedNode} />, document.getElementById('settingBar'));
+ReactDOM.render( <Modal isOpen={true} />, document.getElementById('modalWin'));
 
 
 

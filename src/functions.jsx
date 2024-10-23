@@ -1,5 +1,15 @@
 // ========================================
 const delay = ms => new Promise(res => setTimeout(res, ms));
+  // Function to toggle modal visibility
+export const toggleModal = (modal, Open) => {
+    if (Open) {
+      // If modal is open, close it
+      modal.style.display = 'flex';
+    } else {
+      // If modal is closed, open it
+      modal.style.display = 'none';
+    }
+  };
 
 // Define the pipeline control functions
 export const runPipeline = () => {
@@ -29,20 +39,20 @@ export const onNew = (graph) => {
 export function savePipelineInSession (graph){
     // Save pipeline to session storage
     // show spinner
-    document.getElementById('savingSpinner')!.style.display = ''
+    document.getElementById('savingSpinner').style.display = ''
     const pipeline = graph.toJSON()
     sessionStorage.setItem('pipeline', JSON.stringify(pipeline))
-    sessionStorage.setItem('projName', document.getElementById('projName')!.innerText)
+    sessionStorage.setItem('projName', document.getElementById('projName').innerText)
 
     // delay 1 second to show spinner
     delay(1000).then(() => {
         // hide spinner
-        document.getElementById('savingSpinner')!.style.display = 'none'
+        document.getElementById('savingSpinner').style.display = 'none'
     })
 }
 
 export function saveFileA(graph) {
-    let projName = document.getElementById('projName')!.innerText
+    let projName = document.getElementById('projName').innerText
     if (projName.includes("Error")) {}
 
     let graphJson = graph.toJSON()
@@ -56,10 +66,10 @@ export function saveFileA(graph) {
     URL.revokeObjectURL(url)
     savePipelineInSession(graph)
 
-    const dirHandle = (window as any).showDirectoryPicker();
+    const dirHandle = window.showDirectoryPicker();
     console.log(dirHandle)
 
-    document.getElementById('projName')!.innerText = projName;
+    document.getElementById('projName').innerText = projName;
 
 }
 
@@ -74,7 +84,7 @@ export const onOpen = async (graph) => {
   console.log('Opening a folder...');
 
   try {
-      const dirHandle = await (window as any).showDirectoryPicker();
+      const dirHandle = await window.showDirectoryPicker();
       console.log(dirHandle)
 
       // Loop through the directory entries
@@ -84,7 +94,7 @@ export const onOpen = async (graph) => {
                 const file = await handle.getFile();
                 let reader = new FileReader()
                 reader.onload = (e) => {
-                    let graphString = e.target?.result as string
+                    let graphString = e.target?.result
                     let graphJson = JSON.parse(graphString)
                     graph.fromJSON(graphJson)
                 }
@@ -93,7 +103,7 @@ export const onOpen = async (graph) => {
         }
         // Update the label to show the folder's name (or path if available)
         const projName = document.getElementById('projName');
-        projName!.textContent = `Project: ${dirHandle.name}`;
+        projName.textContent = `Project: ${dirHandle.name}`;
   } catch (e){
 
   }

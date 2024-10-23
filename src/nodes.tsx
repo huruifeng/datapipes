@@ -8,10 +8,8 @@ import { register } from '@antv/x6-react-shape'
 // @ts-ignore
 import ReactDOM from "react-dom";
 
-// @ts-ignore
-import SettingBar from "./SettingBar/index.tsx";
-// @ts-ignore
-import {runSelected} from "./functions.tsx";
+import SettingBar from "./SettingBar";
+import {runSelected} from "./functions.jsx";
 
 const imageShapes = [
   {label: 'Client', image: './images/computer-solid.svg',},

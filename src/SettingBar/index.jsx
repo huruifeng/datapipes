@@ -4,7 +4,7 @@ import './SettingBar.css';
 // @ts-ignore
 import React from "react";
 // @ts-ignore
-import {ParamFrom} from "./ParamForm.tsx";
+import {ParamFrom} from "./ParamForm.jsx";
 
 const SettingBar = ({ selectedNode }) => {
   return (
