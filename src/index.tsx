@@ -64,15 +64,24 @@ const checkPipelineInSession = () => {
     const pipeline = sessionStorage.getItem('pipeline')
     if (pipeline) {
         graph.fromJSON(JSON.parse(pipeline))
+        console.log("Loaded pipeline from session")
+    }else{
+        console.log("No pipeline in session")
     }
+
 
     let projName = sessionStorage.getItem('projName')
     if (projName){
+        console.log("projName in session")
         if(projName.includes("Error")){
-            onOpen(graph);
+            console.log("projName Error")
+            document.getElementById("btn-new").click()
         }else{
             document.getElementById('projName')!.innerText = projName
         }
+    }else{
+        console.log("projName not in session")
+        document.getElementById("btn-new").click()
     }
 
 }

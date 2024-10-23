@@ -18,7 +18,6 @@ export const runToSelected = () => {
 };
 
 export const onNew = (graph) => {
-  console.log('Saving the pipeline...');
   // Add your logic for running up to the selected step
     //clear the graph and reset the file name
     graph.clearCells()
@@ -44,9 +43,8 @@ export function savePipelineInSession (graph){
 
 export function saveFileA(graph) {
     let projName = document.getElementById('projName')!.innerText
-    if (projName.includes("Error")) {
-        onOpen(graph);
-    }
+    if (projName.includes("Error")) {}
+
     let graphJson = graph.toJSON()
     let graphString = JSON.stringify(graphJson, null, 2);
     let blob = new Blob([graphString], { type: 'application/json' })
@@ -57,6 +55,9 @@ export function saveFileA(graph) {
     a.click()
     URL.revokeObjectURL(url)
     savePipelineInSession(graph)
+
+    const dirHandle = (window as any).showDirectoryPicker();
+    console.log(dirHandle)
 
     document.getElementById('projName')!.innerText = projName;
 

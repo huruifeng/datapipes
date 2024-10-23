@@ -46,7 +46,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
       <div style={{display: 'flex', justifyContent: 'space-between', padding: '3px', backgroundColor: '#f5f5f5'}}>
           <div className="funcRun" style={{display: 'flex', justifyContent: 'flex-start'}}>
               {/* Run Current Button */}
-              <button
+              <button  id="btn-runpipeline"
                   onClick={onRunPipeline}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
@@ -65,7 +65,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
               </button>
 
               {/* Run Selected Button */}
-              <button
+              <button  id="btn-runselected"
                   onClick={onRunSelected}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
@@ -84,7 +84,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
               </button>
 
               {/* Run to Selected Button */}
-              <button
+              <button  id="btn-runtoselected"
                   onClick={onRunToSelected}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
@@ -105,7 +105,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
           <div className="funcNewSaveOpen"
                style={{display: 'flex', justifyContent: 'flex-start', marginLeft: '30px'}}>
               {/* start a pipeline */}
-              <button
+              <button id="btn-new"
                   onClick={onNew}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
@@ -123,7 +123,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
               </button>
 
               {/* Open a pipeline */}
-              <button
+              <button  id="btn-open"
                   onClick={onOpen}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
@@ -142,7 +142,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
               </button>
 
               {/* Save the pipeline */}
-              <button
+              <button  id="btn-save"
                   onClick={onSave}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
