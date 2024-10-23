@@ -11,7 +11,7 @@ import ReactDOM from "react-dom";
 // @ts-ignore
 import SettingBar from "./SettingBar/index.tsx";
 // @ts-ignore
-import {runCurrent} from "./functions.tsx";
+import {runSelected} from "./functions.tsx";
 
 const imageShapes = [
   {label: 'Client', image: './images/computer-solid.svg',},
@@ -53,10 +53,10 @@ const AlgoNode = (props) => {
       <img className="setting_icon" src={image.setting} alt="setting" onClick={() => showSetting(node)}  />
       <span className="label">{label}</span>
         <span className="status">
-        {status === 'default' && <img src={image.default} alt="default" onClick={()=>runCurrent()} />}
-        {status === 'success' && <img src={image.success} alt="success" />}
-        {status === 'failed' && <img src={image.failed} alt="failed" />}
-        {status === 'running' && <img src={image.running} alt="running" />}
+        {status === 'default' && <img src={image.default} alt="default" onClick={()=>runSelected(node)} />}
+        {status === 'success' && <img src={image.success} alt="success" onClick={()=>runSelected(node)} />}
+        {status === 'failed' && <img src={image.failed} alt="failed" onClick={()=>runSelected(node)} />}
+        {status === 'running' && <img src={image.running} alt="running" onClick={()=>runSelected(node)} />}
       </span>
     </div>
   )

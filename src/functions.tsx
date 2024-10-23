@@ -2,12 +2,12 @@
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 // Define the pipeline control functions
-export const runCurrent = () => {
+export const runPipeline = () => {
   console.log('Running current pipeline step...');
   // Add your logic for running the current pipeline step
 };
 
-export const runSelected = () => {
+export const runSelected = (node) => {
   console.log('Running selected pipeline step...');
   // Add your logic for running the selected step
 };

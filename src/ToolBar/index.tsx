@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPlayCircle, faStepForward,faSave, faFolderOpen, faSquarePlus} from '@fortawesome/free-solid-svg-icons';
 
 interface ToolBarProps {
-  onRunCurrent: () => void;
+  onRunPipeline: () => void;
   onRunSelected: () => void;
   onRunToSelected: () => void;
   onNew: () => void;
@@ -13,7 +13,7 @@ interface ToolBarProps {
   onFileOpen: () => void;
 }
 
-const ToolBar: React.FC<ToolBarProps> = ({ onRunCurrent, onRunSelected, onRunToSelected,onNew, onSave, onFileOpen }) => {
+const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunToSelected,onNew, onSave, onFileOpen }) => {
   const buttonStyle = {
     marginRight: '5px',
     display: 'flex',
@@ -47,7 +47,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunCurrent, onRunSelected, onRunToS
           <div className="funcRun" style={{display: 'flex', justifyContent: 'flex-start'}}>
               {/* Run Current Button */}
               <button
-                  onClick={onRunCurrent}
+                  onClick={onRunPipeline}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}

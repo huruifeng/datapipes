@@ -15,7 +15,7 @@ import * as nodes from './nodes.tsx';
 import SettingBar from "./SettingBar/index.tsx";
 
 // @ts-ignore
-import {onFileOpen, onNew, onSave, runCurrent, runSelected, runToSelected, savePipelineInSession} from './functions.tsx';
+import {onFileOpen, onNew, onSave, runPipeline, runSelected, runToSelected, savePipelineInSession} from './functions.tsx';
 
 
 // ========================================
@@ -75,7 +75,7 @@ window.onload = () => {
 
 // ========================================
 const selectedNode = null;
-ReactDOM.render(<ToolBar onRunCurrent={runCurrent} onRunSelected={runSelected} onRunToSelected={runToSelected} onNew={()=>onNew(graph)} onSave={()=>onSave(graph)} onFileOpen={()=>onFileOpen(graph)} />, document.getElementById('right-top'));
+ReactDOM.render(<ToolBar onRunPipeline={runPipeline} onRunSelected={runSelected} onRunToSelected={runToSelected} onNew={()=>onNew(graph)} onSave={()=>onSave(graph)} onFileOpen={()=>onFileOpen(graph)} />, document.getElementById('right-top'));
 ReactDOM.render(<SettingBar selectedNode={selectedNode} />, document.getElementById('settingBar'));
 
 
