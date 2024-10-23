@@ -15,7 +15,7 @@ import * as nodes from './nodes.tsx';
 import SettingBar from "./SettingBar/index.tsx";
 
 // @ts-ignore
-import {onFileOpen, onNew, onSave, runPipeline, runSelected, runToSelected, savePipelineInSession} from './functions.tsx';
+import {onOpen, onNew, onSave, runPipeline, runSelected, runToSelected, savePipelineInSession} from './functions.tsx';
 
 
 // ========================================
@@ -65,17 +65,26 @@ const checkPipelineInSession = () => {
     if (pipeline) {
         graph.fromJSON(JSON.parse(pipeline))
     }
+
+    let projName = sessionStorage.getItem('projName')
+    if (projName){
+        if(projName.includes("Error")){
+            onOpen(graph);
+        }else{
+            document.getElementById('projName')!.innerText = projName
+        }
+    }
+
 }
 
 window.onload = () => {
     checkPipelineInSession()
-    document.getElementById('fileName')!.innerText = "Remember to save"
     // showNodeStatus(statusList)
 }
 
 // ========================================
 const selectedNode = null;
-ReactDOM.render(<ToolBar onRunPipeline={runPipeline} onRunSelected={runSelected} onRunToSelected={runToSelected} onNew={()=>onNew(graph)} onSave={()=>onSave(graph)} onFileOpen={()=>onFileOpen(graph)} />, document.getElementById('right-top'));
+ReactDOM.render(<ToolBar onRunPipeline={runPipeline} onRunSelected={runSelected} onRunToSelected={runToSelected} onNew={()=>onNew(graph)} onSave={()=>onSave(graph)} onOpen={()=>onOpen(graph)} />, document.getElementById('right-top'));
 ReactDOM.render(<SettingBar selectedNode={selectedNode} />, document.getElementById('settingBar'));
 
 

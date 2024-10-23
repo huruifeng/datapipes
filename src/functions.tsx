@@ -22,7 +22,7 @@ export const onNew = (graph) => {
   // Add your logic for running up to the selected step
     //clear the graph and reset the file name
     graph.clearCells()
-    document.getElementById('fileName')!.innerText = 'Unsaved pipeline'
+    onOpen(graph);
 };
 
 // ========================================
@@ -33,6 +33,7 @@ export function savePipelineInSession (graph){
     document.getElementById('savingSpinner')!.style.display = ''
     const pipeline = graph.toJSON()
     sessionStorage.setItem('pipeline', JSON.stringify(pipeline))
+    sessionStorage.setItem('projName', document.getElementById('projName')!.innerText)
 
     // delay 1 second to show spinner
     delay(1000).then(() => {
@@ -42,22 +43,22 @@ export function savePipelineInSession (graph){
 }
 
 export function saveFileA(graph) {
-    let fileName = document.getElementById('fileName')!.innerText
-    if (fileName === 'Unsaved pipeline' || fileName === 'Remember to save') {
-        fileName = 'pipeline.json'
+    let projName = document.getElementById('projName')!.innerText
+    if (projName.includes("Error")) {
+        onOpen(graph);
     }
     let graphJson = graph.toJSON()
     let graphString = JSON.stringify(graphJson, null, 2);
     let blob = new Blob([graphString], { type: 'application/json' })
     let url = URL.createObjectURL(blob)
     let a = document.createElement('a')
-    a.download = fileName
+    a.download = "pipeline.json"
     a.href = url
     a.click()
     URL.revokeObjectURL(url)
     savePipelineInSession(graph)
 
-    document.getElementById('fileName')!.innerText = "Remember to save"
+    document.getElementById('projName')!.innerText = projName;
 
 }
 
@@ -68,24 +69,32 @@ export const onSave = (graph) => {
 };
 
 
-export const onFileOpen = (graph) => {
-  console.log('Open a pipeline from file...');
-  // Add your logic for running up to the selected step
-    let input = document.createElement('input')
-    input.type = 'file'
-    input.accept = '.json'
-    input.onchange = (e) => {
-        let file = (e.target as HTMLInputElement).files![0]
-        let reader = new FileReader()
-        reader.onload = (e) => {
-            let graphString = e.target?.result as string
-            let graphJson = JSON.parse(graphString)
-            graph.fromJSON(graphJson)
+export const onOpen = async (graph) => {
+  console.log('Opening a folder...');
 
-            let fileName = file.name
-            document.getElementById('fileName')!.innerText = fileName
+  try {
+      const dirHandle = await (window as any).showDirectoryPicker();
+      console.log(dirHandle)
+
+      // Loop through the directory entries
+        for await (const [name, handle] of dirHandle) {
+            if (handle.kind === 'file' && name === "pipeline.json") {
+
+                const file = await handle.getFile();
+                let reader = new FileReader()
+                reader.onload = (e) => {
+                    let graphString = e.target?.result as string
+                    let graphJson = JSON.parse(graphString)
+                    graph.fromJSON(graphJson)
+                }
+                reader.readAsText(file)
+            }
         }
-        reader.readAsText(file)
-    }
-    input.click()
+        // Update the label to show the folder's name (or path if available)
+        const projName = document.getElementById('projName');
+        projName!.textContent = `Project: ${dirHandle.name}`;
+  } catch (e){
+
+  }
+
 };

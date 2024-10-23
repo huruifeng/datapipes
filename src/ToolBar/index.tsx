@@ -10,10 +10,10 @@ interface ToolBarProps {
   onRunToSelected: () => void;
   onNew: () => void;
   onSave: () => void;
-  onFileOpen: () => void;
+  onOpen: () => void;
 }
 
-const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunToSelected,onNew, onSave, onFileOpen }) => {
+const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunToSelected,onNew, onSave, onOpen }) => {
   const buttonStyle = {
     marginRight: '5px',
     display: 'flex',
@@ -124,7 +124,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
 
               {/* Open a pipeline */}
               <button
-                  onClick={onFileOpen}
+                  onClick={onOpen}
                   style={buttonStyle}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor)}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}
@@ -163,7 +163,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onRunPipeline, onRunSelected, onRunTo
           <div style={{marginLeft: 'auto', padding:"5px 5px 5px 5px"}}>
               <span>
                   <img id="savingSpinner" style={{height:"15px", width:"15px", paddingRight:"5px", display:"None"}} src="./images/loading_buffering.gif" alt="loading..."/>
-                  <span id="fileName">Unsaved pipeline</span>
+                  <span id="projName">Error: Untitled project</span>
               </span>
           </div>
       </div>
