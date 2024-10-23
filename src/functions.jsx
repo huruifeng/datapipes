@@ -90,20 +90,23 @@ export const onOpen = async (graph) => {
       // Loop through the directory entries
         for await (const [name, handle] of dirHandle) {
             if (handle.kind === 'file' && name === "pipeline.json") {
-
                 const file = await handle.getFile();
                 let reader = new FileReader()
                 reader.onload = (e) => {
                     let graphString = e.target?.result
                     let graphJson = JSON.parse(graphString)
                     graph.fromJSON(graphJson)
+                    sessionStorage.setItem('pipeline', graphString)
                 }
                 reader.readAsText(file)
+                break
             }
         }
         // Update the label to show the folder's name (or path if available)
         const projName = document.getElementById('projName');
         projName.textContent = `Project: ${dirHandle.name}`;
+        toggleModal(document.getElementById('myModal'), false);
+
   } catch (e){
 
   }

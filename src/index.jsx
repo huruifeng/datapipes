@@ -82,9 +82,9 @@ const checkPipelineInSession = () => {
         if(projName.includes("Error")){
             console.log("projName Error")
             toggleModal(modal,true);
-
         }else{
             document.getElementById('projName').innerText = projName
+            toggleModal(modal,false);
         }
     }else{
         console.log("projName not in session")
